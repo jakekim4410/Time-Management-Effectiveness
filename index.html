@@ -1,453 +1,452 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>시간관리 효과성 진단</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- html2canvas CDN for capturing HTML to image -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <style>
-        /* Google Fonts - Inter */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        body {
-            font-family: 'Inter', sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            background-color: #f3f4f6; /* Light gray background */
-            display: flex;
-            justify-content: center;
-            align-items: flex-start; /* Align items to the top for better scroll behavior */
-            min-height: 100vh;
-            padding: 2rem 0; /* Add padding top/bottom */
-        }
-        .container {
-            background-color: #ffffff;
-            border-radius: 1.5rem; /* Rounded corners */
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1); /* Soft shadow */
-            max-width: 900px; /* Max width for readability */
-            width: 95%; /* Responsive width */
-            padding: 2.5rem; /* Ample padding */
-            animation: fadeIn 0.5s ease-out; /* Fade-in animation */
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .section-hidden {
-            display: none !important; /* Use !important to ensure override */
-        }
-        /* Custom radio button styling */
-        input[type="radio"] {
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            width: 1.25rem;
-            height: 1.25rem;
-            border-radius: 50%;
-            border: 2px solid #cbd5e1; /* border-gray-300 */
-            background-color: #ffffff;
-            transition: all 0.2s ease-in-out;
-            cursor: pointer;
-        }
-        input[type="radio"]:checked {
-            background-color: #4f46e5; /* indigo-600 */
-            border-color: #4f46e5;
-            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.2); /* ring-indigo-200 effect */
-        }
-        input[type="radio"]:focus {
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.5); /* Focus ring */
-        }
-        .question-option label {
-            cursor: pointer;
-            padding: 0.5rem 0;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        .modal {
-            position: fixed; /* Stay in place */
-            z-index: 1000; /* Sit on top */
-            left: 0;
-            top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-            display: flex; /* Always display flex when not hidden by section-hidden */
-            justify-content: center;
-            align-items: center;
-        }
-        .modal-content {
-            background-color: #fefefe;
-            margin: auto;
-            padding: 2rem;
-            border-radius: 0.75rem; /* Rounded corners */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
-            width: 90%;
-            text-align: center;
-        }
-        .modal-button {
-            background-color: #4f46e5; /* indigo-600 */
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 0.5rem;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-        .modal-button:hover {
-            background-color: #4338ca; /* indigo-700 */
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>시간관리 효과성 진단</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        /* Google Fonts - Inter */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-color: #f3f4f6; /* Light gray background */
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Align items to the top for better scroll behavior */
+            min-height: 100vh;
+            padding: 2rem 0; /* Add padding top/bottom */
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 1.5rem; /* Rounded corners */
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1); /* Soft shadow */
+            max-width: 900px; /* Max width for readability */
+            width: 95%; /* Responsive width */
+            padding: 2.5rem; /* Ample padding */
+            animation: fadeIn 0.5s ease-out; /* Fade-in animation */
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .section-hidden {
+            display: none !important; /* Use !important to ensure override */
+        }
+        /* Custom radio button styling */
+        input[type="radio"] {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            width: 1.25rem;
+            height: 1.25rem;
+            border-radius: 50%;
+            border: 2px solid #cbd5e1; /* border-gray-300 */
+            background-color: #ffffff;
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+        }
+        input[type="radio"]:checked {
+            background-color: #4f46e5; /* indigo-600 */
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.2); /* ring-indigo-200 effect */
+        }
+        input[type="radio"]:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.5); /* Focus ring */
+        }
+        .question-option label {
+            cursor: pointer;
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .modal {
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            display: flex; /* Always display flex when not hidden by section-hidden */
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 2rem;
+            border-radius: 0.75rem; /* Rounded corners */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+        .modal-button {
+            background-color: #4f46e5; /* indigo-600 */
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .modal-button:hover {
+            background-color: #4338ca; /* indigo-700 */
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Introduction Section -->
-        <div id="intro-section" class="text-center">
-            <h1 class="text-4xl font-bold text-gray-800 mb-6">시간관리 효과성 진단</h1>
-            <p class="text-lg text-gray-600 mb-4 leading-relaxed">
-                이 진단은 당신의 현재 시간 관리 습관과 효율성을 평가하는 데 도움을 줍니다.
-                본 진단은 <strong>AMA (American Management Association)</strong> 의 시간 관리 원칙과 공신력 있는 이론을 바탕으로 구성된 <strong>모의 진단</strong>입니다.
-                AMA는 100년이 넘는 역사를 가진 세계적인 경영 교육 기관으로, 비즈니스 및 개인 역량 개발 분야에서 높은 전문성과 신뢰도를 인정받고 있습니다.
-            </p>
-            <p class="text-lg text-gray-600 mb-8 leading-relaxed">
-                각 문항에 대해 당신의 행동이나 생각에 가장 잘 맞는 점수를 선택해주세요. 당신의 시간 관리 습관을 객관적으로 이해하는 데 유용한 통찰을 제공할 것입니다.
-            </p>
-            <p class="text-md text-gray-500 mb-10">
-                (1점: 전혀 그렇지 않다 / 2점: 거의 그렇지 않다 / 3점: 보통이다 / 4점: 대체로 그렇다 / 5점: 항상 그렇다)
-            </p>
-            <button id="start-assessment-btn"
-                    class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition-colors duration-300 transform hover:scale-105">
-                진단 시작하기
-            </button>
-        </div>
-
-        <!-- Question Section (Initially hidden) -->
-        <div id="question-section" class="section-hidden">
-            <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">진단 문항</h2>
-            <form id="assessment-form">
-                <!-- Questions will be dynamically loaded here by JavaScript -->
-            </form>
-            <div class="mt-10 text-center">
-                <button id="submit-assessment-btn"
-                        class="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition-colors duration-300 transform hover:scale-105">
-                    결과 보기
-                </button>
+    <div class="container">
+                <div id="intro-section" class="text-center">
+            <h1 class="text-4xl font-bold text-gray-800 mb-6">시간관리 효과성 진단</h1>
+            <p class="text-lg text-gray-600 mb-4 leading-relaxed">
+                이 진단은 당신의 현재 시간 관리 습관과 효율성을 평가하는 데 도움을 줍니다.
+                본 진단은 <strong>AMA (American Management Association)</strong> 의 시간 관리 원칙과 공신력 있는 이론을 바탕으로 구성된 <strong>모의 진단</strong>입니다.
+                AMA는 100년이 넘는 역사를 가진 세계적인 경영 교육 기관으로, 비즈니스 및 개인 역량 개발 분야에서 높은 전문성과 신뢰도를 인정받고 있습니다.
+            </p>
+            <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+                각 문항에 대해 당신의 행동이나 생각에 가장 잘 맞는 점수를 선택해주세요. 당신의 시간 관리 습관을 객관적으로 이해하는 데 유용한 통찰을 제공할 것입니다.
+            </p>
+            <p class="text-md text-gray-500 mb-10">
+                (1점: 전혀 그렇지 않다 / 2점: 거의 그렇지 않다 / 3점: 보통이다 / 4점: 대체로 그렇다 / 5점: 항상 그렇다)
+            </p>
+            <button id="start-assessment-btn"
+                    class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition-colors duration-300 transform hover:scale-105">
+                진단 시작하기
+            </button>
+            <div class="mt-8">
+                <ins class="kakao_ad_area" style="display:none;"
+                data-ad-unit = "DAN-ZDxpRdG7JwrvIsJ5"
+                data-ad-width = "300"
+                data-ad-height = "250"></ins>
             </div>
-        </div>
+        </div>
 
-        <!-- Result Section (Initially hidden) -->
-        <div id="result-section" class="section-hidden text-center">
-            <h2 class="text-3xl font-bold text-gray-800 mb-6">진단 결과</h2>
-            <div id="total-score" class="text-2xl font-bold text-indigo-700 mb-4"></div>
-            <div id="category-scores" class="text-left bg-gray-50 p-6 rounded-xl mb-6">
-                <h3 class="text-xl font-semibold text-gray-700 mb-4">영역별 점수:</h3>
-                <!-- Category scores will be displayed here -->
-            </div>
-            <div id="feedback" class="text-left bg-blue-50 p-6 rounded-xl border border-blue-200">
-                <h3 class="text-xl font-semibold text-gray-700 mb-4">종합 피드백:</h3>
-                <!-- Feedback will be displayed here -->
-            </div>
-            <div class="mt-8 flex justify-center gap-4">
-                <button id="download-result-btn"
-                        class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition-colors duration-300 transform hover:scale-105">
-                    결과 다운로드
-                </button>
-                <button id="restart-assessment-btn"
-                        class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition-colors duration-300 transform hover:scale-105">
-                    다시 진단하기
-                </button>
-            </div>
-        </div>
-    </div>
+                <div id="question-section" class="section-hidden">
+            <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">진단 문항</h2>
+            <form id="assessment-form">
+                            </form>
+            <div class="mt-10 text-center">
+                <button id="submit-assessment-btn"
+                        class="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition-colors duration-300 transform hover:scale-105">
+                    결과 보기
+                </button>
+            </div>
+        </div>
 
-    <!-- Custom Modal for Messages -->
-    <div id="custom-modal" class="modal section-hidden">
-        <div class="modal-content">
-            <p id="modal-message" class="text-lg text-gray-700 mb-6"></p>
-            <button id="modal-ok-btn" class="modal-button">확인</button>
-        </div>
-    </div>
+                <div id="result-section" class="section-hidden text-center">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">진단 결과</h2>
+            <div id="total-score" class="text-2xl font-bold text-indigo-700 mb-4"></div>
+            <div id="category-scores" class="text-left bg-gray-50 p-6 rounded-xl mb-6">
+                <h3 class="text-xl font-semibold text-gray-700 mb-4">영역별 점수:</h3>
+                            </div>
+            <div id="feedback" class="text-left bg-blue-50 p-6 rounded-xl border border-blue-200">
+                <h3 class="text-xl font-semibold text-gray-700 mb-4">종합 피드백:</h3>
+                            </div>
+            <div class="mt-8 flex justify-center gap-4">
+                <button id="download-result-btn"
+                        class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition-colors duration-300 transform hover:scale-105">
+                    결과 다운로드
+                </button>
+                <button id="restart-assessment-btn"
+                        class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition-colors duration-300 transform hover:scale-105">
+                    다시 진단하기
+                </button>
+            </div>
+        </div>
+    </div>
 
-    <script>
-        // DOM 요소 가져오기
-        const introSection = document.getElementById('intro-section');
-        const questionSection = document.getElementById('question-section');
-        const resultSection = document.getElementById('result-section');
-        const startButton = document.getElementById('start-assessment-btn');
-        const submitButton = document.getElementById('submit-assessment-btn');
-        const restartButton = document.getElementById('restart-assessment-btn');
-        const downloadButton = document.getElementById('download-result-btn'); // New download button
-        const assessmentForm = document.getElementById('assessment-form');
-        const totalScoreDisplay = document.getElementById('total-score');
-        const categoryScoresDisplay = document.getElementById('category-scores');
-        const feedbackDisplay = document.getElementById('feedback');
+        <div id="custom-modal" class="modal section-hidden">
+        <div class="modal-content">
+            <p id="modal-message" class="text-lg text-gray-700 mb-6"></p>
+            <button id="modal-ok-btn" class="modal-button">확인</button>
+        </div>
+    </div>
 
-        // Modal elements
-        const customModal = document.getElementById('custom-modal');
-        const modalMessage = document.getElementById('modal-message');
-        const modalOkButton = document.getElementById('modal-ok-btn');
+    <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
 
-        // 진단 문항 데이터
-        // 각 문항은 고유한 ID 접두사, 질문 텍스트, 속하는 카테고리를 가집니다.
-        const questions = [
-            { category: "목표 설정 및 우선순위", idPrefix: "q1", text: "매일/매주 중요한 목표를 명확히 정의합니다." },
-            { category: "목표 설정 및 우선순위", idPrefix: "q2", text: "업무 시작 전 우선순위를 정하고 중요한 일부터 처리합니다." },
-            { category: "목표 설정 및 우선순위", idPrefix: "q3", text: "급한 일과 중요한 일을 구분하여 처리합니다." },
-            { category: "계획 및 스케줄링", idPrefix: "q4", text: "매일/매주 할 일 목록(To-do list)을 작성하고 활용합니다." },
-            { category: "계획 및 스케줄링", idPrefix: "q5", text: "중요한 약속이나 마감 기한을 스케줄러에 기록하고 확인합니다." },
-            { category: "계획 및 스케줄링", idPrefix: "q6", text: "예측 불가능한 상황에 대비해 계획에 유연성을 둡니다." },
-            { category: "방해 요소 관리", idPrefix: "q7", text: "불필요한 알림, 전화 등으로 인한 방해를 최소화합니다." },
-            { category: "방해 요소 관리", idPrefix: "q8", text: "업무 중 소셜 미디어나 불필요한 인터넷 서핑을 자제합니다." },
-            { category: "방해 요소 관리", idPrefix: "q9", text: "집중을 방해하는 요소를 제거하기 위해 노력합니다." },
-            { category: "미루는 습관 관리", idPrefix: "q10", text: "중요하지만 하기 싫은 일을 미루지 않고 바로 시작하는 편입니다." },
-            { category: "미루는 습관 관리", idPrefix: "q11", text: "어려운 업무를 작은 단위로 쪼개어 접근합니다." },
-            { category: "위임 및 거절", idPrefix: "q12", text: "내가 할 필요 없는 일을 다른 사람에게 적절히 위임합니다." },
-            { category: "위임 및 거절", idPrefix: "q13", "text": "불필요하거나 과도한 요청에 대해 단호하게 거절할 수 있습니다." },
-        ];
+    <script>
+        // DOM 요소 가져오기
+        const introSection = document.getElementById('intro-section');
+        const questionSection = document.getElementById('question-section');
+        const resultSection = document.getElementById('result-section');
+        const startButton = document.getElementById('start-assessment-btn');
+        const submitButton = document.getElementById('submit-assessment-btn');
+        const restartButton = document.getElementById('restart-assessment-btn');
+        const downloadButton = document.getElementById('download-result-btn'); // New download button
+        const assessmentForm = document.getElementById('assessment-form');
+        const totalScoreDisplay = document.getElementById('total-score');
+        const categoryScoresDisplay = document.getElementById('category-scores');
+        const feedbackDisplay = document.getElementById('feedback');
 
-        // 모달 메시지를 표시하는 함수
-        function showMessageModal(message) {
-            modalMessage.textContent = message;
-            customModal.classList.remove('section-hidden');
-            // 모달이 나타날 때 포커스 관리 (접근성)
-            modalOkButton.focus();
-        }
+        // Modal elements
+        const customModal = document.getElementById('custom-modal');
+        const modalMessage = document.getElementById('modal-message');
+        const modalOkButton = document.getElementById('modal-ok-btn');
 
-        // 모달을 숨기는 함수
-        function hideMessageModal() {
-            customModal.classList.add('section-hidden');
-        }
+        // 진단 문항 데이터
+        // 각 문항은 고유한 ID 접두사, 질문 텍스트, 속하는 카테고리를 가집니다.
+        const questions = [
+            { category: "목표 설정 및 우선순위", idPrefix: "q1", text: "매일/매주 중요한 목표를 명확히 정의합니다." },
+            { category: "목표 설정 및 우선순위", idPrefix: "q2", text: "업무 시작 전 우선순위를 정하고 중요한 일부터 처리합니다." },
+            { category: "목표 설정 및 우선순위", idPrefix: "q3", text: "급한 일과 중요한 일을 구분하여 처리합니다." },
+            { category: "계획 및 스케줄링", idPrefix: "q4", text: "매일/매주 할 일 목록(To-do list)을 작성하고 활용합니다." },
+            { category: "계획 및 스케줄링", idPrefix: "q5", text: "중요한 약속이나 마감 기한을 스케줄러에 기록하고 확인합니다." },
+            { category: "계획 및 스케줄링", idPrefix: "q6", text: "예측 불가능한 상황에 대비해 계획에 유연성을 둡니다." },
+            { category: "방해 요소 관리", idPrefix: "q7", text: "불필요한 알림, 전화 등으로 인한 방해를 최소화합니다." },
+            { category: "방해 요소 관리", idPrefix: "q8", text: "업무 중 소셜 미디어나 불필요한 인터넷 서핑을 자제합니다." },
+            { category: "방해 요소 관리", idPrefix: "q9", text: "집중을 방해하는 요소를 제거하기 위해 노력합니다." },
+            { category: "미루는 습관 관리", idPrefix: "q10", text: "중요하지만 하기 싫은 일을 미루지 않고 바로 시작하는 편입니다." },
+            { category: "미루는 습관 관리", idPrefix: "q11", text: "어려운 업무를 작은 단위로 쪼개어 접근합니다." },
+            { category: "위임 및 거절", idPrefix: "q12", text: "내가 할 필요 없는 일을 다른 사람에게 적절히 위임합니다." },
+            { category: "위임 및 거절", idPrefix: "q13", "text": "불필요하거나 과도한 요청에 대해 단호하게 거절할 수 있습니다." },
+        ];
 
-        // 진단 문항을 렌더링하는 함수
-        function renderQuestions() {
-            assessmentForm.innerHTML = ''; // 기존 문항 초기화
-            let currentCategoryDiv = null;
-            let currentCategory = '';
+        // 모달 메시지를 표시하는 함수
+        function showMessageModal(message) {
+            modalMessage.textContent = message;
+            customModal.classList.remove('section-hidden');
+            // 모달이 나타날 때 포커스 관리 (접근성)
+            modalOkButton.focus();
+        }
 
-            questions.forEach((q, index) => {
-                if (q.category !== currentCategory) {
-                    // 새 카테고리 시작
-                    currentCategory = q.category;
-                    currentCategoryDiv = document.createElement('div');
-                    currentCategoryDiv.className = 'mb-8 p-6 bg-blue-50 rounded-xl shadow-sm border border-blue-200';
-                    const categoryTitle = document.createElement('h3');
-                    categoryTitle.className = 'text-xl font-semibold text-indigo-800 mb-4 border-b pb-2 border-blue-300';
-                    categoryTitle.textContent = currentCategory;
-                    currentCategoryDiv.appendChild(categoryTitle);
-                    assessmentForm.appendChild(currentCategoryDiv);
-                }
+        // 모달을 숨기는 함수
+        function hideMessageModal() {
+            customModal.classList.add('section-hidden');
+        }
 
-                const questionDiv = document.createElement('div');
-                questionDiv.className = 'mb-6 p-4 bg-white rounded-lg shadow-sm';
+        // 진단 문항을 렌더링하는 함수
+        function renderQuestions() {
+            assessmentForm.innerHTML = ''; // 기존 문항 초기화
+            let currentCategoryDiv = null;
+            let currentCategory = '';
 
-                const questionText = document.createElement('p');
-                questionText.className = 'text-lg font-medium text-gray-800 mb-3';
-                questionText.textContent = `${index + 1}. ${q.text}`;
-                questionDiv.appendChild(questionText);
+            questions.forEach((q, index) => {
+                if (q.category !== currentCategory) {
+                    // 새 카테고리 시작
+                    currentCategory = q.category;
+                    currentCategoryDiv = document.createElement('div');
+                    currentCategoryDiv.className = 'mb-8 p-6 bg-blue-50 rounded-xl shadow-sm border border-blue-200';
+                    const categoryTitle = document.createElement('h3');
+                    categoryTitle.className = 'text-xl font-semibold text-indigo-800 mb-4 border-b pb-2 border-blue-300';
+                    categoryTitle.textContent = currentCategory;
+                    currentCategoryDiv.appendChild(categoryTitle);
+                    assessmentForm.appendChild(currentCategoryDiv);
+                }
 
-                const optionsDiv = document.createElement('div');
-                optionsDiv.className = 'flex flex-wrap gap-4 justify-center sm:justify-start';
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'mb-6 p-4 bg-white rounded-lg shadow-sm';
 
-                // 1점에서 5점까지의 라디오 버튼 생성
-                for (let i = 1; i <= 5; i++) {
-                    const optionContainer = document.createElement('div');
-                    optionContainer.className = 'question-option flex items-center';
+                const questionText = document.createElement('p');
+                questionText.className = 'text-lg font-medium text-gray-800 mb-3';
+                questionText.textContent = `${index + 1}. ${q.text}`;
+                questionDiv.appendChild(questionText);
 
-                    const input = document.createElement('input');
-                    input.type = 'radio';
-                    input.id = `${q.idPrefix}-${i}`;
-                    input.name = q.idPrefix; // 같은 name으로 그룹화
-                    input.value = i;
-                    input.className = 'form-radio h-5 w-5 text-indigo-600 transition-colors duration-200';
+                const optionsDiv = document.createElement('div');
+                optionsDiv.className = 'flex flex-wrap gap-4 justify-center sm:justify-start';
 
-                    const label = document.createElement('label');
-                    label.htmlFor = `${q.idPrefix}-${i}`;
-                    label.className = 'ml-2 text-gray-700 text-base';
-                    label.textContent = `${i}점`;
+                // 1점에서 5점까지의 라디오 버튼 생성
+                for (let i = 1; i <= 5; i++) {
+                    const optionContainer = document.createElement('div');
+                    optionContainer.className = 'question-option flex items-center';
 
-                    optionContainer.appendChild(input);
-                    optionContainer.appendChild(label);
-                    optionsDiv.appendChild(optionContainer);
-                }
-                questionDiv.appendChild(optionsDiv);
-                currentCategoryDiv.appendChild(questionDiv);
-            });
-        }
+                    const input = document.createElement('input');
+                    input.type = 'radio';
+                    input.id = `${q.idPrefix}-${i}`;
+                    input.name = q.idPrefix; // 같은 name으로 그룹화
+                    input.value = i;
+                    input.className = 'form-radio h-5 w-5 text-indigo-600 transition-colors duration-200';
 
-        // 진단 결과를 계산하고 표시하는 함수
-        function calculateAndDisplayResults() {
-            let totalScore = 0;
-            const categoryScores = {};
-            let allAnswered = true;
+                    const label = document.createElement('label');
+                    label.htmlFor = `${q.idPrefix}-${i}`;
+                    label.className = 'ml-2 text-gray-700 text-base';
+                    label.textContent = `${i}점`;
 
-            // 각 카테고리 초기화
-            questions.forEach(q => {
-                if (!(q.category in categoryScores)) {
-                    categoryScores[q.category] = 0;
-                }
-            });
+                    optionContainer.appendChild(input);
+                    optionContainer.appendChild(label);
+                    optionsDiv.appendChild(optionContainer);
+                }
+                questionDiv.appendChild(optionsDiv);
+                currentCategoryDiv.appendChild(questionDiv);
+            });
+        }
 
-            // 모든 질문에 대한 응답 확인 및 점수 계산
-            questions.forEach(q => {
-                const selectedOption = document.querySelector(`input[name="${q.idPrefix}"]:checked`);
-                if (selectedOption) {
-                    const score = parseInt(selectedOption.value);
-                    totalScore += score;
-                    categoryScores[q.category] += score;
-                } else {
-                    allAnswered = false; // 응답하지 않은 질문이 있음
-                }
-            });
+        // 진단 결과를 계산하고 표시하는 함수
+        function calculateAndDisplayResults() {
+            let totalScore = 0;
+            const categoryScores = {};
+            let allAnswered = true;
 
-            if (!allAnswered) {
-                // 모든 질문에 응답하지 않았다면 경고 메시지 표시
-                showMessageModal("모든 문항에 답변해주세요!");
-                return;
-            }
+            // 각 카테고리 초기화
+            questions.forEach(q => {
+                if (!(q.category in categoryScores)) {
+                    categoryScores[q.category] = 0;
+                }
+            });
 
-            // 섹션 전환: 질문 섹션 숨기고 결과 섹션 표시
-            questionSection.classList.add('section-hidden');
-            resultSection.classList.remove('section-hidden');
+            // 모든 질문에 대한 응답 확인 및 점수 계산
+            questions.forEach(q => {
+                const selectedOption = document.querySelector(`input[name="${q.idPrefix}"]:checked`);
+                if (selectedOption) {
+                    const score = parseInt(selectedOption.value);
+                    totalScore += score;
+                    categoryScores[q.category] += score;
+                } else {
+                    allAnswered = false; // 응답하지 않은 질문이 있음
+                }
+            });
 
-            // 총점 표시
-            totalScoreDisplay.textContent = `총점: ${totalScore}점`;
+            if (!allAnswered) {
+                // 모든 질문에 응답하지 않았다면 경고 메시지 표시
+                showMessageModal("모든 문항에 답변해주세요!");
+                return;
+            }
 
-            // 카테고리별 점수 표시
-            categoryScoresDisplay.innerHTML = '<h3 class="text-xl font-semibold text-gray-700 mb-4">영역별 점수:</h3>';
-            for (const category in categoryScores) {
-                const p = document.createElement('p');
-                p.className = 'text-md text-gray-700 mb-2';
-                p.textContent = `- ${category}: ${categoryScores[category]}점`;
-                categoryScoresDisplay.appendChild(p);
-            }
+            // 섹션 전환: 질문 섹션 숨기고 결과 섹션 표시
+            questionSection.classList.add('section-hidden');
+            resultSection.classList.remove('section-hidden');
 
-            // 피드백 제공 (총점 및 카테고리별)
-            feedbackDisplay.innerHTML = '<h3 class="text-xl font-semibold text-gray-700 mb-4">종합 피드백:</h3>'; // 기존 내용 초기화
+            // 총점 표시
+            totalScoreDisplay.textContent = `총점: ${totalScore}점`;
 
-            const maxPossibleScore = questions.length * 5;
-            const scorePercentage = (totalScore / maxPossibleScore) * 100;
-            let overallFeedbackText = '';
+            // 카테고리별 점수 표시
+            categoryScoresDisplay.innerHTML = '<h3 class="text-xl font-semibold text-gray-700 mb-4">영역별 점수:</h3>';
+            for (const category in categoryScores) {
+                const p = document.createElement('p');
+                p.className = 'text-md text-gray-700 mb-2';
+                p.textContent = `- ${category}: ${categoryScores[category]}점`;
+                categoryScoresDisplay.appendChild(p);
+            }
 
-            if (scorePercentage >= 85) {
-                overallFeedbackText = "⭐ 훌륭합니다! 당신은 시간을 매우 효과적으로 관리하고 있으며, 높은 수준의 효율성과 생산성을 보여줍니다. 현재의 강점을 유지하며 지속적으로 발전하세요.";
-            } else if (scorePercentage >= 70) {
-                overallFeedbackText = "👍 당신은 시간 관리를 잘 하고 있습니다. 대부분의 영역에서 효율적인 습관을 가지고 있으며, 몇몇 개선점을 통해 더 높은 성과를 낼 수 있습니다.";
-            } else if (scorePercentage >= 50) {
-                overallFeedbackText = "🤔 시간 관리 능력을 향상시킬 필요가 있습니다. 당신은 특정 영역에서 어려움을 겪고 있을 수 있으니, 진단 결과를 바탕으로 구체적인 개선 계획을 세우는 것이 좋습니다.";
-            } else {
-                overallFeedbackText = "❗ 시간 관리 습관에 대한 심각한 재평가가 필요합니다. 기본적인 시간 관리 원칙부터 다시 점검하고, 적극적인 노력을 기울여 시간 관리 효율을 높여야 합니다.";
-            }
-            const overallP = document.createElement('p');
-            overallP.className = 'text-lg text-gray-700 leading-relaxed mb-6';
-            overallP.textContent = overallFeedbackText;
-            feedbackDisplay.appendChild(overallP);
+            // 피드백 제공 (총점 및 카테고리별)
+            feedbackDisplay.innerHTML = '<h3 class="text-xl font-semibold text-gray-700 mb-4">종합 피드백:</h3>'; // 기존 내용 초기화
 
-            // 각 카테고리별 상세 피드백
-            feedbackDisplay.innerHTML += '<h3 class="text-xl font-semibold text-gray-700 mb-4 border-t pt-4 mt-4 border-blue-200">영역별 상세 피드백:</h3>';
+            const maxPossibleScore = questions.length * 5;
+            const scorePercentage = (totalScore / maxPossibleScore) * 100;
+            let overallFeedbackText = '';
 
-            for (const category in categoryScores) {
-                const numQuestionsInCategory = questions.filter(q => q.category === category).length;
-                const maxCategoryScore = numQuestionsInCategory * 5;
-                const categoryScorePercentage = (categoryScores[category] / maxCategoryScore) * 100;
+            if (scorePercentage >= 85) {
+                overallFeedbackText = "⭐ 훌륭합니다! 당신은 시간을 매우 효과적으로 관리하고 있으며, 높은 수준의 효율성과 생산성을 보여줍니다. 현재의 강점을 유지하며 지속적으로 발전하세요.";
+            } else if (scorePercentage >= 70) {
+                overallFeedbackText = "👍 당신은 시간 관리를 잘 하고 있습니다. 대부분의 영역에서 효율적인 습관을 가지고 있으며, 몇몇 개선점을 통해 더 높은 성과를 낼 수 있습니다.";
+            } else if (scorePercentage >= 50) {
+                overallFeedbackText = "🤔 시간 관리 능력을 향상시킬 필요가 있습니다. 당신은 특정 영역에서 어려움을 겪고 있을 수 있으니, 진단 결과를 바탕으로 구체적인 개선 계획을 세우는 것이 좋습니다.";
+            } else {
+                overallFeedbackText = "❗ 시간 관리 습관에 대한 심각한 재평가가 필요합니다. 기본적인 시간 관리 원칙부터 다시 점검하고, 적극적인 노력을 기울여 시간 관리 효율을 높여야 합니다.";
+            }
+            const overallP = document.createElement('p');
+            overallP.className = 'text-lg text-gray-700 leading-relaxed mb-6';
+            overallP.textContent = overallFeedbackText;
+            feedbackDisplay.appendChild(overallP);
 
-                const categoryFeedbackP = document.createElement('p');
-                categoryFeedbackP.className = 'text-md text-gray-700 leading-relaxed mb-4 p-3 bg-white rounded-lg shadow-sm';
+            // 각 카테고리별 상세 피드백
+            feedbackDisplay.innerHTML += '<h3 class="text-xl font-semibold text-gray-700 mb-4 border-t pt-4 mt-4 border-blue-200">영역별 상세 피드백:</h3>';
 
-                let feedback = `<strong>${category}:</strong> `;
-                if (categoryScorePercentage >= 80) {
-                    feedback += "뛰어남! 이 영역에서 높은 효율성을 보입니다. 강점을 유지하고 더욱 발전시키세요.";
-                } else if (categoryScorePercentage >= 60) {
-                    feedback += "양호함. 이 영역에서 좋은 시간 관리 습관을 가지고 있지만, 더 높은 효율을 위해 약간의 개선이 필요할 수 있습니다.";
-                } else {
-                    feedback += "개선 필요. 이 영역에서 시간 관리 능력을 향상시킬 필요가 있습니다. 다음 조언을 참고하세요:<br>";
-                    if (category === "목표 설정 및 우선순위") {
-                        feedback += "- 목표를 SMART(구체적, 측정 가능, 달성 가능, 관련성 있는, 기한 있는)하게 설정하고, 아이젠하워 매트릭스(긴급성/중요성)를 활용하여 우선순위를 명확히 하세요.";
-                    } else if (category === "계획 및 스케줄링") {
-                        feedback += "- 매일/매주 할 일 목록을 구체적으로 작성하고, 캘린더나 앱을 활용하여 주요 일정을 블록킹하세요. 예상치 못한 상황에 대비한 유연한 계획도 중요합니다.";
-                    } else if (category === "방해 요소 관리") {
-                        feedback += "- 업무 중 스마트폰 알림 끄기, 불필요한 웹사이트 차단, 정해진 시간에만 이메일 확인하기 등 집중을 방해하는 요소를 의식적으로 제거하세요.";
-                    } else if (category === "미루는 습관 관리") {
-                        feedback += "- 큰 업무를 작은 단위로 나누어 시작하고, '5분 규칙'(일단 5분만 해보기)을 적용해보세요. 완료 시 자신에게 작은 보상을 주는 것도 도움이 됩니다.";
-                    } else if (category === "위임 및 거절") {
-                        feedback += "- 혼자 모든 것을 하려 하지 마세요. 적절한 업무는 타인에게 위임하고, 자신의 한계를 넘어서는 요청이나 불필요한 요청에는 정중하게 '아니오'라고 말하는 연습이 필요합니다.";
-                    }
-                }
-                categoryFeedbackP.innerHTML = feedback; // innerHTML을 사용하여 HTML 태그 해석
-                feedbackDisplay.appendChild(categoryFeedbackP);
-            }
+            for (const category in categoryScores) {
+                const numQuestionsInCategory = questions.filter(q => q.category === category).length;
+                const maxCategoryScore = numQuestionsInCategory * 5;
+                const categoryScorePercentage = (categoryScores[category] / maxCategoryScore) * 100;
 
-            // 결과 섹션으로 스크롤 이동
-            resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+                const categoryFeedbackP = document.createElement('p');
+                categoryFeedbackP.className = 'text-md text-gray-700 leading-relaxed mb-4 p-3 bg-white rounded-lg shadow-sm';
 
-        /**
-         * 결과 섹션을 이미지로 캡처하여 다운로드하는 함수
-         */
-        function downloadResultImage() {
-            // 캡처할 요소 지정 (여기서는 전체 결과 섹션)
-            const elementToCapture = document.getElementById('result-section');
+                let feedback = `<strong>${category}:</strong> `;
+                if (categoryScorePercentage >= 80) {
+                    feedback += "뛰어남! 이 영역에서 높은 효율성을 보입니다. 강점을 유지하고 더욱 발전시키세요.";
+                } else if (categoryScorePercentage >= 60) {
+                    feedback += "양호함. 이 영역에서 좋은 시간 관리 습관을 가지고 있지만, 더 높은 효율을 위해 약간의 개선이 필요할 수 있습니다.";
+                } else {
+                    feedback += "개선 필요. 이 영역에서 시간 관리 능력을 향상시킬 필요가 있습니다. 다음 조언을 참고하세요:<br>";
+                    if (category === "목표 설정 및 우선순위") {
+                        feedback += "- 목표를 SMART(구체적, 측정 가능, 달성 가능, 관련성 있는, 기한 있는)하게 설정하고, 아이젠하워 매트릭스(긴급성/중요성)를 활용하여 우선순위를 명확히 하세요.";
+                    } else if (category === "계획 및 스케줄링") {
+                        feedback += "- 매일/매주 할 일 목록을 구체적으로 작성하고, 캘린더나 앱을 활용하여 주요 일정을 블록킹하세요. 예상치 못한 상황에 대비한 유연한 계획도 중요합니다.";
+                    } else if (category === "방해 요소 관리") {
+                        feedback += "- 업무 중 스마트폰 알림 끄기, 불필요한 웹사이트 차단, 정해진 시간에만 이메일 확인하기 등 집중을 방해하는 요소를 의식적으로 제거하세요.";
+                    } else if (category === "미루는 습관 관리") {
+                        feedback += "- 큰 업무를 작은 단위로 나누어 시작하고, '5분 규칙'(일단 5분만 해보기)을 적용해보세요. 완료 시 자신에게 작은 보상을 주는 것도 도움이 됩니다.";
+                    } else if (category === "위임 및 거절") {
+                        feedback += "- 혼자 모든 것을 하려 하지 마세요. 적절한 업무는 타인에게 위임하고, 자신의 한계를 넘어서는 요청이나 불필요한 요청에는 정중하게 '아니오'라고 말하는 연습이 필요합니다.";
+                    }
+                }
+                categoryFeedbackP.innerHTML = feedback; // innerHTML을 사용하여 HTML 태그 해석
+                feedbackDisplay.appendChild(categoryFeedbackP);
+            }
 
-            // html2canvas 옵션: 배경색을 흰색으로 설정하여 투명 배경 문제를 방지
-            // scale을 높여 고해상도 이미지를 얻을 수 있음 (필요에 따라 조정)
-            html2canvas(elementToCapture, {
-                backgroundColor: '#ffffff',
-                scale: 2 // Increase scale for better quality image
-            }).then(canvas => {
-                // 캡처된 캔버스에서 이미지 데이터 URL 가져오기
-                const imageDataURL = canvas.toDataURL('image/png');
+            // 결과 섹션으로 스크롤 이동
+            resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
 
-                // 다운로드를 위한 임시 링크 생성
-                const a = document.createElement('a');
-                a.href = imageDataURL;
-                a.download = '시간관리_효과성_진단_결과.png'; // 다운로드될 파일 이름 설정
-                document.body.appendChild(a); // 링크를 문서에 추가 (필수)
-                a.click(); // 링크 클릭하여 다운로드 트리거
-                document.body.removeChild(a); // 사용 후 링크 제거
-            }).catch(error => {
-                console.error("이미지 다운로드 중 오류 발생:", error);
-                showMessageModal("이미지 다운로드에 실패했습니다. 다시 시도해주세요.");
-            });
-        }
+        /**
+         * 결과 섹션을 이미지로 캡처하여 다운로드하는 함수
+         */
+        function downloadResultImage() {
+            // 캡처할 요소 지정 (여기서는 전체 결과 섹션)
+            const elementToCapture = document.getElementById('result-section');
+
+            // html2canvas 옵션: 배경색을 흰색으로 설정하여 투명 배경 문제를 방지
+            // scale을 높여 고해상도 이미지를 얻을 수 있음 (필요에 따라 조정)
+            html2canvas(elementToCapture, {
+                backgroundColor: '#ffffff',
+                scale: 2 // Increase scale for better quality image
+            }).then(canvas => {
+                // 캡처된 캔버스에서 이미지 데이터 URL 가져오기
+                const imageDataURL = canvas.toDataURL('image/png');
+
+                // 다운로드를 위한 임시 링크 생성
+                const a = document.createElement('a');
+                a.href = imageDataURL;
+                a.download = '시간관리_효과성_진단_결과.png'; // 다운로드될 파일 이름 설정
+                document.body.appendChild(a); // 링크를 문서에 추가 (필수)
+                a.click(); // 링크 클릭하여 다운로드 트리거
+                document.body.removeChild(a); // 사용 후 링크 제거
+            }).catch(error => {
+                console.error("이미지 다운로드 중 오류 발생:", error);
+                showMessageModal("이미지 다운로드에 실패했습니다. 다시 시도해주세요.");
+            });
+        }
 
 
-        // 이벤트 리스너 설정
-        startButton.addEventListener('click', () => {
-            introSection.classList.add('section-hidden'); // 인트로 숨기기
-            questionSection.classList.remove('section-hidden'); // 질문 섹션 보이기
-            renderQuestions(); // 질문 렌더링
-            // 질문 섹션으로 스크롤 이동
-            questionSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        });
+        // 이벤트 리스너 설정
+        startButton.addEventListener('click', () => {
+            introSection.classList.add('section-hidden'); // 인트로 숨기기
+            questionSection.classList.remove('section-hidden'); // 질문 섹션 보이기
+            renderQuestions(); // 질문 렌더링
+            // 질문 섹션으로 스크롤 이동
+            questionSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
 
-        submitButton.addEventListener('click', () => {
-            calculateAndDisplayResults(); // 결과 계산 및 표시
-        });
+        submitButton.addEventListener('click', () => {
+            calculateAndDisplayResults(); // 결과 계산 및 표시
+        });
 
-        restartButton.addEventListener('click', () => {
-            resultSection.classList.add('section-hidden'); // 결과 섹션 숨기기
-            introSection.classList.remove('section-hidden'); // 인트로 섹션 보이기
-            assessmentForm.reset(); // 폼 초기화 (선택된 라디오 버튼 해제)
-            // 인트로 섹션으로 스크롤 이동
-            introSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        });
+        restartButton.addEventListener('click', () => {
+            resultSection.classList.add('section-hidden'); // 결과 섹션 숨기기
+            introSection.classList.remove('section-hidden'); // 인트로 섹션 보이기
+            assessmentForm.reset(); // 폼 초기화 (선택된 라디오 버튼 해제)
+            // 인트로 섹션으로 스크롤 이동
+            introSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
 
-        downloadButton.addEventListener('click', downloadResultImage); // 다운로드 버튼 이벤트 리스너 추가
+        downloadButton.addEventListener('click', downloadResultImage); // 다운로드 버튼 이벤트 리스너 추가
 
-        modalOkButton.addEventListener('click', hideMessageModal);
+        modalOkButton.addEventListener('click', hideMessageModal);
 
-        // 페이지 로드 시 초기화
-        window.onload = () => {
-            // 모든 섹션을 숨기고 인트로만 표시 (초기 상태)
-            questionSection.classList.add('section-hidden');
-            resultSection.classList.add('section-hidden');
-            customModal.classList.add('section-hidden'); /* 모달도 초기에는 숨김 */
-            introSection.classList.remove('section-hidden');
-        };
-    </script>
+        // 페이지 로드 시 초기화
+        window.onload = () => {
+            // 모든 섹션을 숨기고 인트로만 표시 (초기 상태)
+            questionSection.classList.add('section-hidden');
+            resultSection.classList.add('section-hidden');
+            customModal.classList.add('section-hidden'); /* 모달도 초기에는 숨김 */
+            introSection.classList.remove('section-hidden');
+        };
+    </script>
 </body>
 </html>
